@@ -3,6 +3,7 @@ import datetime
 from django.db import transaction
 from django.http import HttpResponse
 from dry_rest_permissions.generics import DRYPermissions
+from edx_rest_framework_extensions.permissions import JwtScopePermissions
 from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
@@ -20,7 +21,7 @@ class CatalogViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.PermissionsFilter,)
     lookup_field = 'id'
-    permission_classes = (DRYPermissions,)
+    permission_classes = (DRYPermissions, JwtScopePermissions,)
     queryset = Catalog.objects.all()
     serializer_class = serializers.CatalogSerializer
 
