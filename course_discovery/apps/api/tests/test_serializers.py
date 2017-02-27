@@ -260,9 +260,9 @@ class CourseWithProgramsSerializerTests(CourseSerializerTests):
             enrollment_end=None,
             course=self.course
         )
-        SeatFactory(course_run=unpublished_course_run)
-        SeatFactory(course_run=enrollable_course_run)
-        SeatFactory(course_run=archived_course_run)
+        SeatFactory(course_run=unpublished_course_run, upgrade_deadline=None, type='verified')
+        SeatFactory(course_run=enrollable_course_run, upgrade_deadline=None, type='verified')
+        SeatFactory(course_run=archived_course_run, upgrade_deadline=None, type='verified')
 
         context = {
             'request': self.request,

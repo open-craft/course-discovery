@@ -120,6 +120,40 @@ class CourseRunQuerySetTests(TestCase):
 
         self.assertEqual(CourseRun.objects.marketable().exists(), is_published)
 
+    def test_upgradeable(self):
+        """ Verify the method returns only course runs whose upgrade deadline has not passed
+        or is not defined for verified/professional modes. """
+        past = datetime.datetime.now(pytz.UTC) - datetime.timedelta(days=2)
+        future = datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=2)
+
+        upgrade_deadline_passed = CourseRunFactory()
+        SeatFactory(upgrade_deadline=past, course_run=upgrade_deadline_passed, type='verified')
+        upgrade_deadline_not_passed = CourseRunFactory()
+        SeatFactory(upgrade_deadline=future, course_run=upgrade_deadline_not_passed, type='verified')
+        upgrade_deadline_not_defined = CourseRunFactory()
+        SeatFactory(upgrade_deadline=None, course_run=upgrade_deadline_not_defined, type='verified')
+
+        # order doesn't matter
+        assert sorted(CourseRun.objects.upgradeable(), key=lambda x: x.id) == \
+            sorted([upgrade_deadline_not_passed, upgrade_deadline_not_defined], key=lambda x: x.id)
+
+    def test_upgradeable_only_audit(self):
+        """ Verify the method returns all course runs if every course run only has an audit mode. """
+        past = datetime.datetime.now(pytz.UTC) - datetime.timedelta(days=2)
+        future = datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=2)
+
+        upgrade_deadline_passed = CourseRunFactory()
+        SeatFactory(upgrade_deadline=past, course_run=upgrade_deadline_passed, type='audit')
+        upgrade_deadline_not_passed = CourseRunFactory()
+        SeatFactory(upgrade_deadline=future, course_run=upgrade_deadline_not_passed, type='audit')
+        upgrade_deadline_not_defined = CourseRunFactory()
+        SeatFactory(upgrade_deadline=None, course_run=upgrade_deadline_not_defined, type='audit')
+
+        # order doesn't matter
+        assert sorted(CourseRun.objects.upgradeable(), key=lambda x: x.id) == \
+            sorted([upgrade_deadline_passed, upgrade_deadline_not_passed, upgrade_deadline_not_defined],
+                   key=lambda x: x.id)
+
 
 @ddt.ddt
 class ProgramQuerySetTests(TestCase):

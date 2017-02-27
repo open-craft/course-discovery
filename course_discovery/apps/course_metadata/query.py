@@ -83,6 +83,32 @@ class CourseRunQuerySet(models.QuerySet):
             status=CourseRunStatus.Published
         )
 
+    def upgradeable(self):
+        """ Returns course runs which do not have an upgrade deadline or
+        whose upgrade deadline has not passed for their verified/professional modes.
+
+        Returns all course runs if all modes on all course runs are audit.
+
+
+        Returns:
+            QuerySet
+        """
+        now = datetime.datetime.now(pytz.UTC)
+
+        upgradeable_course_runs, seat_types = [], set()
+
+        for course_run in self:
+            for seat in course_run.seats.all():
+                seat_types.add(seat.type)
+                if (seat.type in ['verified', 'professional'] and
+                        (seat.upgrade_deadline is None or seat.upgrade_deadline > now)):
+                    upgradeable_course_runs.append(course_run)
+
+        if upgradeable_course_runs:
+            return upgradeable_course_runs
+        elif seat_types == {'audit'}:
+            return list(self)
+
 
 class ProgramQuerySet(models.QuerySet):
     def marketable(self):
