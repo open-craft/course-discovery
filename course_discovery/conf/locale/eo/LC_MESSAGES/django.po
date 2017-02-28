@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 15:51+0500\n"
+"POT-Creation-Date: 2017-02-28 18:55+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps/api/filters.py
@@ -260,6 +260,7 @@ msgstr ""
 "ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι σƒƒι¢ια ∂єѕєяυηт мσłłιт αηιм #"
 
 #: apps/course_metadata/choices.py apps/publisher/choices.py
+#: templates/publisher/course_run_detail/_widgets.html
 msgid "Published"
 msgstr "Püßlïshéd Ⱡ'σяєм ιρѕυм ∂σł#"
 
@@ -632,6 +633,11 @@ msgstr ""
 msgid "Preview for {run_name} is available"
 msgstr ""
 "Prévïéw för {run_name} ïs äväïläßlé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: apps/publisher/emails.py
+#, python-brace-format
+msgid "Course {course_name} is now live"
+msgstr "Çöürsé {course_name} ïs nöw lïvé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢#"
 
 #: apps/publisher/forms.py
 msgid "Remove Image"
@@ -2823,6 +2829,18 @@ msgid "Not available"
 msgstr "Nöt äväïläßlé Ⱡ'σяєм ιρѕυм ∂σłσя ѕι#"
 
 #: templates/publisher/course_run_detail/_widgets.html
+msgid "Publish"
+msgstr "Püßlïsh Ⱡ'σяєм ιρѕυм #"
+
+#: templates/publisher/course_run_detail/_widgets.html
+msgid "COURSE PUBLISHED"
+msgstr "ÇÖÛRSÉ PÛBLÌSHÉD Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αм#"
+
+#: templates/publisher/course_run_detail/_widgets.html
+msgid "View course live"
+msgstr "Vïéw çöürsé lïvé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αм#"
+
+#: templates/publisher/course_run_detail/_widgets.html
 msgid "Reason for declining preview"
 msgstr "Réäsön för déçlïnïng prévïéw Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
 
@@ -2953,6 +2971,8 @@ msgstr "Vïéw Çöürsé Ⱡ'σяєм ιρѕυм ∂σłσя #"
 #: templates/publisher/email/course_run/preview_accepted.txt
 #: templates/publisher/email/course_run/preview_available.html
 #: templates/publisher/email/course_run/preview_available.txt
+#: templates/publisher/email/course_run/published.html
+#: templates/publisher/email/course_run/published.txt
 #: templates/publisher/email/decline_preview.html
 #: templates/publisher/email/decline_preview.txt
 msgid "The edX team"
@@ -2988,6 +3008,8 @@ msgstr "Vïéw çömmént:  Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
 #: templates/publisher/email/course/send_for_review.txt
 #: templates/publisher/email/course_run/mark_as_reviewed.html
 #: templates/publisher/email/course_run/mark_as_reviewed.txt
+#: templates/publisher/email/course_run/published.html
+#: templates/publisher/email/course_run/published.txt
 #: templates/publisher/email/course_run/send_for_review.html
 #: templates/publisher/email/course_run/send_for_review.txt
 #, python-format
@@ -3016,6 +3038,8 @@ msgstr ""
 #: templates/publisher/email/course_run/preview_accepted.txt
 #: templates/publisher/email/course_run/preview_available.html
 #: templates/publisher/email/course_run/preview_available.txt
+#: templates/publisher/email/course_run/published.html
+#: templates/publisher/email/course_run/published.txt
 #: templates/publisher/email/course_run/send_for_review.html
 #: templates/publisher/email/course_run/send_for_review.txt
 #: templates/publisher/email/studio_instance_created.html
@@ -3030,6 +3054,7 @@ msgstr "Thänks, Ⱡ'σяєм ιρѕυм #"
 #: templates/publisher/email/course_run/mark_as_reviewed.html
 #: templates/publisher/email/course_run/preview_accepted.html
 #: templates/publisher/email/course_run/preview_available.html
+#: templates/publisher/email/course_run/published.html
 #: templates/publisher/email/course_run/send_for_review.html
 #: templates/publisher/email/studio_instance_created.html
 #, python-format
@@ -3052,6 +3077,7 @@ msgstr ""
 #: templates/publisher/email/course_run/mark_as_reviewed.txt
 #: templates/publisher/email/course_run/preview_accepted.txt
 #: templates/publisher/email/course_run/preview_available.txt
+#: templates/publisher/email/course_run/published.txt
 #: templates/publisher/email/course_run/send_for_review.txt
 #: templates/publisher/email/studio_instance_created.txt
 #, python-format
@@ -3191,6 +3217,22 @@ msgid "Preview for %(course_name)s is available for review. %(page_url)s"
 msgstr ""
 "Prévïéw för %(course_name)s ïs äväïläßlé för révïéw. %(page_url)s Ⱡ'σяєм "
 "ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя #"
+
+#: templates/publisher/email/course_run/published.html
+#, python-format
+msgid ""
+"Your course %(link_start)s%(page_url)s%(link_middle)s %(course_name)s "
+"%(link_end)s is now live."
+msgstr ""
+"Ýöür çöürsé %(link_start)s%(page_url)s%(link_middle)s %(course_name)s "
+"%(link_end)s ïs nöw lïvé. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя #"
+
+#: templates/publisher/email/course_run/published.txt
+#, python-format
+msgid "Your course %(course_name)s is now live. %(page_url)s"
+msgstr ""
+"Ýöür çöürsé %(course_name)s ïs nöw lïvé. %(page_url)s Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт"
+" αмєт, ¢σηѕє¢тє#"
 
 #: templates/publisher/email/course_run/send_for_review.html
 #, python-format
