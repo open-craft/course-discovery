@@ -89,9 +89,8 @@ class CourseRunQuerySet(models.QuerySet):
 
         Returns all course runs if all modes on all course runs are audit.
 
-
         Returns:
-            QuerySet
+            List
         """
         now = datetime.datetime.now(pytz.UTC)
 
@@ -100,13 +99,14 @@ class CourseRunQuerySet(models.QuerySet):
         for course_run in self:
             for seat in course_run.seats.all():
                 seat_types.add(seat.type)
-                if (seat.type in ['verified', 'professional'] and
+                from course_discovery.apps.course_metadata.models import Seat
+                if (seat.type in [Seat.VERIFIED, Seat.PROFESSIONAL] and
                         (seat.upgrade_deadline is None or seat.upgrade_deadline > now)):
                     upgradeable_course_runs.append(course_run)
 
         if upgradeable_course_runs:
             return upgradeable_course_runs
-        elif seat_types == {'audit'}:
+        elif seat_types == {Seat.AUDIT}:
             return list(self)
 
 

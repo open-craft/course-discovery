@@ -5,7 +5,7 @@ import pytz
 from django.test import TestCase
 
 from course_discovery.apps.course_metadata.choices import CourseRunStatus, ProgramStatus
-from course_discovery.apps.course_metadata.models import Course, CourseRun, Program
+from course_discovery.apps.course_metadata.models import Course, CourseRun, Program, Seat
 from course_discovery.apps.course_metadata.tests.factories import CourseRunFactory, ProgramFactory, SeatFactory
 
 
@@ -127,11 +127,11 @@ class CourseRunQuerySetTests(TestCase):
         future = datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=2)
 
         upgrade_deadline_passed = CourseRunFactory()
-        SeatFactory(upgrade_deadline=past, course_run=upgrade_deadline_passed, type='verified')
+        SeatFactory(upgrade_deadline=past, course_run=upgrade_deadline_passed, type=Seat.VERIFIED)
         upgrade_deadline_not_passed = CourseRunFactory()
-        SeatFactory(upgrade_deadline=future, course_run=upgrade_deadline_not_passed, type='verified')
+        SeatFactory(upgrade_deadline=future, course_run=upgrade_deadline_not_passed, type=Seat.VERIFIED)
         upgrade_deadline_not_defined = CourseRunFactory()
-        SeatFactory(upgrade_deadline=None, course_run=upgrade_deadline_not_defined, type='verified')
+        SeatFactory(upgrade_deadline=None, course_run=upgrade_deadline_not_defined, type=Seat.VERIFIED)
 
         # order doesn't matter
         assert sorted(CourseRun.objects.upgradeable(), key=lambda x: x.id) == \
