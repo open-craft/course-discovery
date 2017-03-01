@@ -7,6 +7,17 @@ NODE_BIN=./node_modules/.bin
 
 include .travis/docker.mk
 
+ELASTICSEARCH_VERSION = 1.5.2
+ELASTICSEARCH_PORT = 9223
+
+test.install_elasticsearch:
+	curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$(ELASTICSEARCH_VERSION).zip
+	unzip elasticsearch-$(ELASTICSEARCH_VERSION).zip
+	echo "http.port: $(ELASTICSEARCH_PORT)" >> elasticsearch-$(ELASTICSEARCH_VERSION)/config/elasticsearch.yml
+
+test.run_elasticsearch:
+	cd elasticsearch-$(ELASTICSEARCH_VERSION) && ./bin/elasticsearch -d --http.port=$(ELASTICSEARCH_PORT)
+
 # Generates a help message. Borrowed from https://github.com/pydanny/cookiecutter-djangopackage.
 help: ## Display this help message
 	@echo "Please use \`make <target>\` where <target> is one of"
