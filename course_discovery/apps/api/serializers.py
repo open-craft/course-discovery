@@ -1089,7 +1089,9 @@ class AggregateFacetSearchSerializer(BaseHaystackFacetSerializer):
 
     class Meta:
         field_aliases = COMMON_SEARCH_FIELD_ALIASES
-        field_options = {**COURSE_RUN_FACET_FIELD_OPTIONS, **PROGRAM_FACET_FIELD_OPTIONS}
+        field_options = {}
+        field_options.update(PROGRAM_FACET_FIELD_OPTIONS)
+        field_options.update(COURSE_RUN_FACET_FIELD_OPTIONS)
         field_queries = COURSE_RUN_FACET_FIELD_QUERIES
         ignore_fields = COMMON_IGNORED_FIELDS
         serializers = {

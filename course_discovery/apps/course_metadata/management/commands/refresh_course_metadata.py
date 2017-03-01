@@ -161,7 +161,7 @@ class Command(BaseCommand):
                                     token_type,
                                     max_workers,
                                     is_threadsafe,
-                                    **kwargs,
+                                    **kwargs
                                 )
             else:
                 # Flatten pipeline and run serially.
@@ -175,7 +175,7 @@ class Command(BaseCommand):
                             token_type,
                             max_workers,
                             is_threadsafe,
-                            **kwargs,
+                            **kwargs
                         )
 
             # TODO Cleanup CourseRun overrides equivalent to the Course values.
