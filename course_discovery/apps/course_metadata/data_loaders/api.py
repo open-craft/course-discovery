@@ -218,7 +218,6 @@ class CoursesApiDataLoader(AbstractDataLoader):
         if not self.partner.has_marketing_site:
             defaults.update({
                 'start': self.parse_date(body['start']),
-                'card_image_url': body['media'].get('image', {}).get('raw'),
                 'title_override': body['name'],
                 'short_description_override': body['short_description'],
                 'video': self.get_courserun_video(body),
@@ -236,6 +235,12 @@ class CoursesApiDataLoader(AbstractDataLoader):
         defaults = {
             'title': body['name'],
         }
+
+        # When using a marketing site, only dates (excluding start) should come from the Course API.
+        if not self.partner.has_marketing_site:
+            defaults.update({
+                'card_image_url': body['media'].get('image', {}).get('raw'),
+            })
 
         return defaults
 
