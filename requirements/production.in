@@ -11,3 +11,5 @@ mysqlclient
 newrelic
 python-memcached
 PyYAML
+boto
+boto3
