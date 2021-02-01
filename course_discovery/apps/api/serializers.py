@@ -107,7 +107,7 @@ def get_marketing_url_for_user(partner, user, marketing_url, exclude_utm=False, 
     """
     if not marketing_url or (draft and not official_version):
         return None
-    elif exclude_utm:
+    elif exclude_utm or not hasattr(user, 'referral_tracking_id'):
         return marketing_url
     else:
         params = urlencode({

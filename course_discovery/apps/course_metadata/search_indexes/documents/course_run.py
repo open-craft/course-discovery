@@ -126,7 +126,7 @@ class CourseRunDocument(BaseCourseDocument):
         ]
 
     def get_queryset(self):
-        return filter_visible_runs(
+        return (
             super().get_queryset()
                    .select_related('course')
                    .prefetch_related('seats__type')

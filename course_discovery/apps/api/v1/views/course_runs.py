@@ -11,6 +11,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from course_discovery.apps.api import filters, serializers
@@ -55,7 +56,8 @@ class CourseRunViewSet(ValidElasticSearchQueryRequiredMixin, viewsets.ModelViewS
     lookup_field = 'key'
     lookup_value_regex = COURSE_RUN_ID_REGEX
     ordering_fields = ('start',)
-    permission_classes = (IsAuthenticated, IsCourseRunEditorOrDjangoOrReadOnly)
+    permission_classes = (AllowAny,)
+    # permission_classes = (IsAuthenticated, IsCourseRunEditorOrDjangoOrReadOnly)
     queryset = CourseRun.objects.all().order_by(Lower('key'))
     serializer_class = serializers.CourseRunWithProgramsSerializer
     metadata_class = MetadataWithRelatedChoices
@@ -81,6 +83,9 @@ class CourseRunViewSet(ValidElasticSearchQueryRequiredMixin, viewsets.ModelViewS
         q = self.request.query_params.get('q')
         partner = self.request.site.partner
         edit_mode = get_query_param(self.request, 'editable') or self.request.method not in SAFE_METHODS
+
+        # TODO: check if IsCourseRunEditorOrDjangoOrReadOnly if edit_mode on
+        # TODO: filter out anything private (maybe is already?) if unauthenticated
 
         if edit_mode and q:
             raise EditableAndQUnsupported()
