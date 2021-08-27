@@ -532,9 +532,12 @@ class EcommerceApiDataLoader(AbstractDataLoader):
         seats_to_remove.delete()
 
     def update_seat(self, course_run, product_body):
+        # Retrieve price with tax value from `product_body`
+        price = Decimal(product_body['price'])
+
+        # Retrieve currency and SKU from `stockrecords`
         stock_record = product_body['stockrecords'][0]
         currency_code = stock_record['price_currency']
-        price = Decimal(stock_record['price_excl_tax'])
         sku = stock_record['partner_sku']
 
         try:
