@@ -51,7 +51,7 @@ django-model-utils==4.0.0  # via taxonomy-connector
 django-parler==2.2        # via -r requirements/base.in
 django-rest-swagger==2.2.0  # via -r requirements/base.in
 django-simple-history==2.12.0  # via -r requirements/base.in
-django-solo==1.1.3        # via -r requirements/base.in, taxonomy-connector
+django-solo==1.1.5        # via -r requirements/base.in, taxonomy-connector
 django-sortedm2m==3.0.2   # via -r requirements/base.in
 django-stdimage==5.1.1    # via -r requirements/base.in
 django-storages==1.10.1   # via -r requirements/base.in
