@@ -572,7 +572,7 @@ class EcommerceApiDataLoader(AbstractDataLoader):
     def update_seat(self, course_run, product_body):
         stock_record = product_body['stockrecords'][0]
         currency_code = stock_record['price_currency']
-        price = Decimal(stock_record['price_excl_tax'])
+        price = Decimal(stock_record.get('price_excl_tax', stock_record['price']))
         sku = stock_record['partner_sku']
 
         # For more context see ADR docs/decisions/0025-dont-sync-mobile-skus-on-discovery.rst
